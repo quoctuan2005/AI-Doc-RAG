@@ -1,0 +1,93 @@
+# ─────────────────────────────────────────────────────────────
+# 🔐 SECRETS & CREDENTIALS — KHÔNG BAO GIỜ COMMIT
+# ─────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example        # chỉ giữ file template, không có key thật
+*.pem
+*.key
+*.p12
+secrets/
+credentials/
+
+# ─────────────────────────────────────────────────────────────
+# 🐍 Python
+# ─────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env.bak
+
+# ─────────────────────────────────────────────────────────────
+# 🧠 AI / ML — Model cache & data files
+# ─────────────────────────────────────────────────────────────
+# HuggingFace model cache
+.cache/
+~/.cache/huggingface/
+
+# FAISS index files (rebuild được từ documents)
+*.index
+faiss_index/
+vectorstore/index/
+
+# Uploaded / processed documents
+uploads/
+tmp/
+temp/
+*.tmp
+.files/
+
+# ─────────────────────────────────────────────────────────────
+# 📓 Jupyter
+# ─────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ─────────────────────────────────────────────────────────────
+# 🛠️ IDEs & Editors
+# ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─────────────────────────────────────────────────────────────
+# 📦 Dependency managers
+# ─────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ─────────────────────────────────────────────────────────────
+# 🪵 Logs & reports
+# ─────────────────────────────────────────────────────────────
+*.log
+logs/
+chainlit.log
+.chainlit/
+
+# ─────────────────────────────────────────────────────────────
+# 🧪 Testing & coverage
+# ─────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
