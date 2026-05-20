@@ -28,6 +28,15 @@ Quy tắc:
 Context từ tài liệu:
 {context}"""
 
+CONDENSE_QUESTION_PROMPT = """Dựa vào lịch sử hội thoại bên dưới và câu hỏi mới nhất, hãy tạo ra một câu hỏi độc lập (standalone question) bằng ngôn ngữ gốc của câu hỏi.
+Câu hỏi độc lập này phải tự chứa đầy đủ ngữ cảnh để tìm kiếm thông tin mà không cần xem lại lịch sử hội thoại.
+
+Lịch sử hội thoại:
+{chat_history}
+
+Câu hỏi mới nhất: {question}
+Câu hỏi độc lập:"""
+
 
 class RAGChain:
     """
@@ -59,8 +68,25 @@ class RAGChain:
     def invoke(self, inputs: Dict) -> Dict:
         question = inputs["question"]
 
+        # Viết lại câu hỏi nếu có lịch sử hội thoại
+        query_for_retrieval = question
+        if self.chat_history:
+            history_str = "\n".join(
+                f"{'Human' if turn['role'] == 'human' else 'Assistant'}: {turn['content']}"
+                for turn in self.chat_history[-5:]
+            )
+            condense_prompt = CONDENSE_QUESTION_PROMPT.format(
+                chat_history=history_str, question=question
+            )
+            try:
+                condensed = self.llm.invoke(condense_prompt)
+                query_for_retrieval = condensed.content.strip()
+                print(f"🔄 Viết lại câu hỏi: '{question}' -> '{query_for_retrieval}'")
+            except Exception as e:
+                print(f"⚠️ Lỗi khi viết lại câu hỏi: {e}")
+
         # Retrieve relevant docs
-        docs = self.retriever.invoke(question)
+        docs = self.retriever.invoke(query_for_retrieval)
         context = self._format_docs(docs)
 
         # Build messages với history

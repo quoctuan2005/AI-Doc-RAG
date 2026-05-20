@@ -11,7 +11,7 @@ OPENAI_API_KEY     = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL       = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
 
 # ── Embedding ────────────────────────────────────────────────
-EMBEDDING_MODEL    = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
+EMBEDDING_MODEL    = os.getenv("EMBEDDING_MODEL", "BAAI/bge-m3")
 
 # ── Chunking ─────────────────────────────────────────────────
 CHUNK_SIZE         = int(os.getenv("CHUNK_SIZE", "500"))

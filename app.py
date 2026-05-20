@@ -58,7 +58,10 @@ async def process_uploaded_files(files) -> int:
         vectorstore = add_documents(existing_vs, chunks)
 
     # Build RAG chain
+    existing_chain = cl.user_session.get("chain")
     chain = build_rag_chain(vectorstore)
+    if existing_chain:
+        chain.chat_history = existing_chain.chat_history
 
     # Lưu vào session
     cl.user_session.set("vectorstore", vectorstore)

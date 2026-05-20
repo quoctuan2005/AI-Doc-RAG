@@ -18,8 +18,6 @@ def clean_text(text: str) -> str:
     text = re.sub(r"\n{3,}", "\n\n", text)
     # Xóa khoảng trắng thừa đầu/cuối mỗi dòng
     text = "\n".join(line.strip() for line in text.splitlines())
-    # Xóa ký tự không in được
-    text = re.sub(r"[^\x20-\x7E\n\u00C0-\u024F\u0100-\u017F\u1EA0-\u1EF9]", " ", text)
     return text.strip()
 
 
